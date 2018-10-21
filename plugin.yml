@@ -1,0 +1,20 @@
+name: MoneyExchange
+main: MoneyExchange\main
+version: 1.0.1
+api: [4.0.0]
+load: POSTWORLD
+author: PJZ9n
+desctiption: PMMP MoneyExchange Plugin
+website: http://asvd.net/
+permissions:
+  moneyexchange:
+    default: op
+    description: "Allows using all the MoneyExchange things"
+    children:
+      moneyexchange.command:
+        default: op
+        description: "Allows using all the MoneyExchange commands"
+        children:
+          moneyexchange.command.exchange:
+            default: true
+            description: "Allows all the exchange command"
