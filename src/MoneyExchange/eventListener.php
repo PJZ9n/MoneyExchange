@@ -2,7 +2,7 @@
 
     namespace MoneyExchange;
 
-    use metowa1227\MoneySystemAPI\MoneySystemAPI;
+    use metowa1227\moneysystem\api\core\API as MoneySystemAPI;
     use onebone\economyapi\EconomyAPI;
     use pocketmine\event\Listener;
     use pocketmine\event\server\DataPacketReceiveEvent;
@@ -31,8 +31,8 @@
                     if ($response !== null) {
                         $economy_money = EconomyAPI::getInstance()->myMoney($player);
                         $economy_unit = EconomyAPI::getInstance()->getMonetaryUnit();
-                        $moneysystem_money = MoneySystemAPI::getInstance()->check($player);
-                        $moneysystem_unit = MoneySystemAPI::getInstance()->getMonitorUnit();
+                        $moneysystem_money = MoneySystemAPI::getInstance()->get($player);
+                        $moneysystem_unit = MoneySystemAPI::getInstance()->getUnit();
                         switch ($response) {
                             case 0:
                                 $steps = array();
@@ -89,7 +89,7 @@
                         $economy_money = EconomyAPI::getInstance()->myMoney($player);
                         $economy_unit = EconomyAPI::getInstance()->getMonetaryUnit();
                         //$moneysystem_money = MoneySystemAPI::getInstance()->check($player);
-                        $moneysystem_unit = MoneySystemAPI::getInstance()->getMonitorUnit();
+                        $moneysystem_unit = MoneySystemAPI::getInstance()->getUnit();
                         $moneysystem_rate = array();
                         $economy_rate = array();
                         for ($i = 0; $i < 50; $i++) {
@@ -101,7 +101,7 @@
                         //$player->sendMessage($economy_unit . $economy_rate[$response[1]] . " => " . $moneysystem_unit . $moneysystem_rate[$response[1]]);
                         if ($economy_money >= $economy_rate[$response[1]]) {
                             EconomyAPI::getInstance()->reduceMoney($player, $economy_rate[$response[1]]);
-                            MoneySystemAPI::getInstance()->addMoney($player, $moneysystem_rate[$response[1]]);
+                            MoneySystemAPI::getInstance()->increase($player, $moneysystem_rate[$response[1]]);
                             $player->sendMessage(main::SUCCESS_TAG . "{$economy_unit}{$economy_rate[$response[1]]}を{$moneysystem_unit}{$moneysystem_rate[$response[1]]}に交換しました");
                         } else {
                             $player->sendMessage(main::ERROR_TAG . "所持金({$economy_unit})が足りません");
@@ -111,8 +111,8 @@
                     if ($response !== null) {
                         //$economy_money = EconomyAPI::getInstance()->myMoney($player);
                         $economy_unit = EconomyAPI::getInstance()->getMonetaryUnit();
-                        $moneysystem_money = MoneySystemAPI::getInstance()->check($player);
-                        $moneysystem_unit = MoneySystemAPI::getInstance()->getMonitorUnit();
+                        $moneysystem_money = MoneySystemAPI::getInstance()->get($player);
+                        $moneysystem_unit = MoneySystemAPI::getInstance()->getUnit();
                         $moneysystem_rate = array();
                         $economy_rate = array();
                         for ($i = 0; $i < 50; $i++) {
@@ -123,7 +123,7 @@
                         }
                         //$player->sendMessage($moneysystem_unit . $moneysystem_rate[$response[1]] . " => " . $economy_unit . $economy_rate[$response[1]]);
                         if ($moneysystem_money >= $moneysystem_rate[$response[1]]) {
-                            MoneySystemAPI::getInstance()->takeMoney($player, $moneysystem_rate[$response[1]]);
+                            MoneySystemAPI::getInstance()->reduce($player, $moneysystem_rate[$response[1]]);
                             EconomyAPI::getInstance()->addMoney($player, $economy_rate[$response[1]]);
                             $player->sendMessage(main::SUCCESS_TAG . "{$moneysystem_unit}{$moneysystem_rate[$response[1]]}を{$economy_unit}{$economy_rate[$response[1]]}に交換しました");
                         } else {

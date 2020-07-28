@@ -3,7 +3,7 @@
     namespace MoneyExchange;
 
 
-    use metowa1227\MoneySystemAPI\MoneySystemAPI;
+    use metowa1227\moneysystem\api\core\API as MoneySystemAPI;
     use onebone\economyapi\EconomyAPI;
     use pocketmine\command\Command;
     use pocketmine\command\CommandSender;
@@ -32,8 +32,8 @@
             //$name = $sender->getName();
             $economy_money = EconomyAPI::getInstance()->myMoney($sender);
             $economy_unit = EconomyAPI::getInstance()->getMonetaryUnit();
-            $moneysystem_money = MoneySystemAPI::getInstance()->check($sender);
-            $moneysystem_unit = MoneySystemAPI::getInstance()->getMonitorUnit();
+            $moneysystem_money = MoneySystemAPI::getInstance()->get($sender);
+            $moneysystem_unit = MoneySystemAPI::getInstance()->getUnit();
             $packet = new ModalFormRequestPacket();
             $packet->formData = json_encode(array(
                 "type" => "form",
