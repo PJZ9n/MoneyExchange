@@ -2,6 +2,7 @@
 build-by-default: true
 branches:
   - master
+  - for-3.x.x
 projects:
   MoneyExchange:
     path: ""
