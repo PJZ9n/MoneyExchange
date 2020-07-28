@@ -1,7 +1,7 @@
 name: MoneyExchange
 main: MoneyExchange\main
 version: 1.0.1
-api: [4.0.0]
+api: [3.2.0]
 load: POSTWORLD
 author: PJZ9n
 desctiption: PMMP MoneyExchange Plugin
